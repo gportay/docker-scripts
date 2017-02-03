@@ -48,9 +48,6 @@ into *$SHELL -c* using user _$USER_ through *docker-run*.
 **-C or --directory DIR**
 	Change to directory dir before doing anything else.
 
-**-q or --quiet**
-	Suppress the build output and print image ID on success.
-
 **-U or --no-user**
 	Disable user substitution (same as --root).
 
@@ -59,6 +56,9 @@ into *$SHELL -c* using user _$USER_ through *docker-run*.
 
 **-H or --home**
 	Bind mount home directory.
+
+**-Q or --no-quiet**
+	Disable quiet mode when image is built.
 
 **-h or --help**
 	Print usage.

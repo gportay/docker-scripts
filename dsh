@@ -44,6 +44,7 @@ Options:
       -U or --no-user           Disable user (same as --root).
             --root              Run as root.
       -H or --home              Bind mount home directory.
+      -Q or --no-quiet          Disable quiet mode when image is built.
       -h or --help              Print usage.
 EOF
 }
@@ -63,6 +64,7 @@ root=false
 file="Dockerfile"
 directory="."
 home=false
+buildopts="--quiet"
 runopts="--rm"
 while [ "$#" -ne 0 ]; do
 	if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
@@ -76,14 +78,14 @@ while [ "$#" -ne 0 ]; do
 	elif [ "$1" = "-C" ] || [ "$1" = "--directory" ]; then
 		shift
 		directory="$1"
-	elif [ "$1" = "-q" ] || [ "$1" = "--quiet" ]; then
-		buildopts+=" --quiet"
 	elif [ "$1" = "-U" ] || [ "$1" = "--no-user" ]; then
 		root=true
 	elif [ "$1" = "--root" ]; then
 		root=true
 	elif [ "$1" = "-H" ] || [ "$1" = "--home" ]; then
 		home=true
+	elif [ "$1" = "-Q" ] || [ "$1" = "--no-quiet" ]; then
+		buildopts=
 	elif [ "$1" = "-c" ]; then
 		shift
 		optc=true
