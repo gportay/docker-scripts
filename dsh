@@ -35,6 +35,7 @@ Options:
       -i                        Set interactive.
       -s                        Read commands from standard-input.
 
+      -b or --build             Build image.
       -f or --file              Path to the Dockerfile to use.
       -q or --quiet             Suppress the build output and print image ID on
                                 success.
@@ -54,6 +55,7 @@ EOF
 opti=false
 opts=false
 optc=false
+build=false
 root=false
 file="Dockerfile"
 runopts="--rm --volume $PWD:/home/$USER"
@@ -61,6 +63,8 @@ while [ "$#" -ne 0 ]; do
 	if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
 		usage
 		exit 0
+	elif [ "$1" = "-b" ] || [ "$1" = "--build" ]; then
+		build=true
 	elif [ "$1" = "-f" ] || [ "$1" = "--file" ]; then
 		shift
 		file="$1"
@@ -91,7 +95,16 @@ done
 
 hash="$(realpath "$file" | sha256sum - | cut -d' ' -f1)"
 tag="dsh-$hash"
-docker_build "$file" "$tag" >&2
+
+# Build image if it does not exist
+imageid="$(docker images -q "$tag")"
+if [ -z "$imageid" ]; then
+	build=true
+fi
+
+if $build; then
+	docker_build "$file" "$tag" >&2
+fi
 
 # Set current user privileges
 if ! $root; then
