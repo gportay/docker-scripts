@@ -41,8 +41,9 @@ Options:
                                 else.
       -q or --quiet             Suppress the build output and print image ID on
                                 success.
-      -U or --no-user           Disable user substitution (same as --root).
+      -U or --no-user           Disable user (same as --root).
             --root              Run as root.
+      -H or --home              Bind mount home directory.
       -h or --help              Print usage.
 EOF
 }
@@ -61,6 +62,7 @@ build=false
 root=false
 file="Dockerfile"
 directory="."
+home=false
 runopts="--rm"
 while [ "$#" -ne 0 ]; do
 	if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
@@ -80,6 +82,8 @@ while [ "$#" -ne 0 ]; do
 		root=true
 	elif [ "$1" = "--root" ]; then
 		root=true
+	elif [ "$1" = "-H" ] || [ "$1" = "--home" ]; then
+		home=true
 	elif [ "$1" = "-c" ]; then
 		shift
 		optc=true
@@ -118,8 +122,15 @@ if ! $root; then
 	runopts+=" --user $UID:$GROUPS"
 fi
 
+# Bind mount home
+if $home; then
+	dwd="$PWD"
+	runopts+=" --volume $HOME:/home/$USER"
 # Bind mount current working directory
-runopts+=" --volume $PWD:/home/$USER"
+else
+	dwd="/home/$USER"
+	runopts+=" --volume $PWD:/home/$USER"
+fi
 
 # Set interactive
 if $opti || $opts || [ "$#" -eq 0 ]; then
@@ -134,13 +145,13 @@ fi
 # Read command from stdin
 # FIXME: pass "$@" insteand of $*
 if $opts; then
-	set -- $SHELL -c "cd /home/$USER && $SHELL -s $*"
+	set -- $SHELL -c "cd $dwd && $SHELL -s $*"
 # Run command from arguments
 elif $optc; then
-	set -- $SHELL -c "cd /home/$USER && $SHELL -c '$*'"
+	set -- $SHELL -c "cd $dwd && $SHELL -c '$*'"
 # No command or invalid
 else
-	set -- $SHELL -c "cd /home/$USER && $SHELL $*"
+	set -- $SHELL -c "cd $dwd && $SHELL $*"
 fi
 
 exec docker run $runopts "$tag" "$@"
