@@ -57,6 +57,9 @@ into *$SHELL -c* using user _$USER_ through *docker-run*.
 **-H or --home**
 	Bind mount home directory.
 
+**-N or --no-do**
+	Do not perform docker commands.
+
 **-Q or --no-quiet**
 	Disable quiet mode when image is built.
 
