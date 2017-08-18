@@ -4,12 +4,12 @@ pkgname=dmake
 pkgver=master
 pkgrel=1
 pkgdesc='Docker make'
+arch=('any')
 url='https://github.com/gportay/docker-scripts'
 license=('MIT')
-source=("https://github.com/gportay/docker-scripts/archive/master.tar.gz")
-arch=('any')
 depends=('docker' 'dosh')
 makedepends=('asciidoctor')
+source=("https://github.com/gportay/docker-scripts/archive/master.tar.gz")
 
 pkgver() {
 	cd "$srcdir/docker-scripts-master"
