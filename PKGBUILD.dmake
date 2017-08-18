@@ -8,7 +8,7 @@ url='https://github.com/gazoo74/docker-scripts'
 license=('MIT')
 source=("https://github.com/gazoo74/docker-scripts/archive/master.tar.gz")
 arch=('any')
-depends=('docker' 'dsh')
+depends=('docker' 'dosh')
 builddepends=('asciidoctor')
 
 pkgver() {

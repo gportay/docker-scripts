@@ -46,6 +46,16 @@ manifest_get_repotags() {
 	echo $key
 }
 
+# manifest_get_layers($TAR, $n)
+#
+# Extract layers n from manifest
+manifest_get_layers() {
+	local key=
+	eval "$(tarcat "$TAR" "manifest.json" | \
+	       jq -r '@sh "key+=\\ \(.['"$1"'].Layers[])"')"
+	echo $key
+}
+
 # image_get_id($TAR, $repo:tag)
 #
 # Extract id from repositories

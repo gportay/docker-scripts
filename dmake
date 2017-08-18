@@ -12,7 +12,7 @@ usage() {
 	cat <<EOF
 Usage: ${0##*/} [OPTIONS] [TARGET...]
 
-Runs on top of make using dsh as default shell.
+Runs on top of make using dosh as default shell.
 
 For a more thorough description of make, please refers to its help.
 
@@ -26,21 +26,21 @@ EOF
 
 parse_arguments() {
 	makeopts=()
-	dshopts="--verbose"
+	doshopts="--verbose"
 	while [ "$#" -ne 0 ]; do
 		if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
 			usage
 			exit 0
 		elif [ "$1" = "--sh" ]; then
-			dshopts+=" $1"
-			shell_dshopts+=" $1"
+			doshopts+=" $1"
+			shell_doshopts+=" $1"
 		elif [ "$1" = "SHELL=/bin/sh" ]; then
 			eval "$1"
 		elif [ "$1" = "-F" ] || [ "$1" = "--dockerfile" ]; then
-			dshopts+=" $1 $2"
+			doshopts+=" $1 $2"
 			shift
 		elif [ "$1" = "-C" ] || [ "$1" = "--directory" ]; then
-			dshopts+=" $1 $2"
+			doshopts+=" $1 $2"
 			makeopts[${#makeopts[*]}]="$1"
 			makeopts[${#makeopts[*]}]="$2"
 			shift
@@ -56,9 +56,9 @@ parse_arguments "$@"
 
 # Create a container and remove it on exit
 # shellcheck disable=SC2086
-container="$(dsh $dshopts --detach)"
+container="$(dosh $doshopts --detach)"
 trap 'docker rm -f $container' 0
 
 # Run make and set docker shell as default shell
 set -- "${makeopts[@]}"
-make SHELL="dsh $shell_dshopts --exec $container" "$@"
+make SHELL="dosh $shell_doshopts --exec $container" "$@"
