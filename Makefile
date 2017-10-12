@@ -52,6 +52,10 @@ uninstall:
 		done; \
 	fi
 
+.PHONY: user-install
+user-install:
+	$(MAKE) install PREFIX=$$HOME/.local
+
 .PHONY: tests
 tests:
 	@./tests.sh
