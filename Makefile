@@ -69,7 +69,7 @@ clean:
 .PHONY: aur
 aur: PKGBUILD.dmake.aur PKGBUILD.docker-scripts.aur
 	for pkgbuild in $^; do \
-		makepkg --force --nodeps -p $$pkgbuild; \
+		makepkg --force --syncdeps -p $$pkgbuild; \
 	done
 
 PKGBUILD%.aur: PKGBUILD%
