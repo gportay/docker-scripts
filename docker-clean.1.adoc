@@ -101,7 +101,7 @@ Remove it using *docker-clean(1) and its __--created__ option
 
 == BUGS
 
-Report bugs at *https://github.com/gazoo74/docker-scripts/issues*
+Report bugs at *https://github.com/gportay/docker-scripts/issues*
 
 == AUTHOR
 

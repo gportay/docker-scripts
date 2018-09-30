@@ -70,7 +70,7 @@ Change to another _directory_ before doing anything else
 
 == BUGS
 
-Report bugs at *https://github.com/gazoo74/docker-scripts/issues*
+Report bugs at *https://github.com/gportay/docker-scripts/issues*
 
 == AUTHOR
 

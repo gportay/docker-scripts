@@ -28,7 +28,7 @@ Display à la git-log the content of docker archive to stdout.
 
 == BUGS
 
-Report bugs at *https://github.com/gazoo74/docker-scripts/issues*
+Report bugs at *https://github.com/gportay/docker-scripts/issues*
 
 == AUTHOR
 

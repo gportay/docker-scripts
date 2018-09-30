@@ -66,7 +66,7 @@ Enjoy!
 
 ## BUGS
 
-Report bugs at *https://github.com/gazoo74/docker-scripts/issues*
+Report bugs at *https://github.com/gportay/docker-scripts/issues*
 
 ## AUTHOR
 
@@ -79,6 +79,6 @@ Copyright (c) 2017-2018 Gaël PORTAY
 This program is free software: you can redistribute it and/or modify it under
 the terms of the MIT License.
 
-[1]: https://www.github.com/gazoo74/dosh/blob/master/dosh.1.adoc
-[2]: https://www.github.com/gazoo74/dosh/blob/master/dosh
-[3]: https://www.github.com/gazoo74/dosh/blob/master/dosh.1.adoc#examples
+[1]: https://www.github.com/gportay/dosh/blob/master/dosh.1.adoc
+[2]: https://www.github.com/gportay/dosh/blob/master/dosh
+[3]: https://www.github.com/gportay/dosh/blob/master/dosh.1.adoc#examples
