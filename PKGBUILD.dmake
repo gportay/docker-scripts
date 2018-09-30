@@ -4,12 +4,12 @@ pkgname=dmake
 pkgver=master
 pkgrel=1
 pkgdesc='Docker make'
+arch=('any')
 url='https://github.com/gportay/docker-scripts'
 license=('MIT')
-source=("https://github.com/gportay/docker-scripts/archive/master.tar.gz")
-arch=('any')
 depends=('docker' 'dosh')
-builddepends=('asciidoctor')
+makedepends=('asciidoctor')
+source=("https://github.com/gportay/docker-scripts/archive/master.tar.gz")
 
 pkgver() {
 	cd "$srcdir/docker-scripts-master"
@@ -30,5 +30,6 @@ package() {
 	install -d "$pkgdir/usr/share/man/man1/"
 	install -m 644 dmake.1.gz "$pkgdir/usr/share/man/man1/"
 	install -d "$pkgdir/usr/share/bash-completion/completions"
-	install -m 644 dmake "$pkgdir/usr/share/bash-completion/completions"
+	install -m 644 bash-completion/dmake \
+	        "$pkgdir/usr/share/bash-completion/completions"
 }

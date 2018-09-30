@@ -28,7 +28,9 @@ install-doc:
 
 .PHONY: install-bash-completion
 install-bash-completion:
-	completionsdir=$$(pkg-config --variable=completionsdir bash-completion); \
+	completionsdir=$$(pkg-config --define-variable=prefix=$(PREFIX) \
+	                             --variable=completionsdir \
+	                             bash-completion); \
 	if [ -n "$$completionsdir" ]; then \
 		install -d $(DESTDIR)$$completionsdir/; \
 		for bash in dmake docker-clean docker-archive; do \
@@ -45,12 +47,18 @@ uninstall:
 	for man in dmake.1.gz docker-clean.1.gz docker-archive.1.gz; do \
 		rm -f $(DESTDIR)$(PREFIX)/share/man/man1/$$man; \
 	done
-	completionsdir=$$(pkg-config --variable=completionsdir bash-completion); \
+	completionsdir=$$(pkg-config --define-variable=prefix=$(PREFIX) \
+	                             --variable=completionsdir \
+	                             bash-completion); \
 	if [ -n "$$completionsdir" ]; then \
 		for bash in dmake docker-clean docker-archive; do \
 			rm -f $(DESTDIR)$$completionsdir/$$bash; \
 		done; \
 	fi
+
+user-install user-install-doc user-install-bash-completion user-uninstall:
+user-%:
+	$(MAKE) $* PREFIX=$$HOME/.local
 
 .PHONY: tests
 tests:
@@ -69,7 +77,7 @@ clean:
 .PHONY: aur
 aur: PKGBUILD.dmake.aur PKGBUILD.docker-scripts.aur
 	for pkgbuild in $^; do \
-		makepkg --force --nodeps -p $$pkgbuild; \
+		makepkg --force --syncdeps -p $$pkgbuild; \
 	done
 
 PKGBUILD%.aur: PKGBUILD%
@@ -77,6 +85,7 @@ PKGBUILD%.aur: PKGBUILD%
 	makepkg --nobuild --nodeps --skipinteg -p $@.tmp
 	md5sum="$$(makepkg --geninteg -p $@.tmp)"; \
 	sed -e "/pkgver()/,/^$$/d" \
+	    -e "/md5sums=/d" \
 	    -e "/source=/a$$md5sum" \
 	    -i $@.tmp
 	mv $@.tmp $@
