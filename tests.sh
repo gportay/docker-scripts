@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (c) 2017 Gaël PORTAY <gael.portay@savoirfairelinux.com>
+# Copyright (c) 2017-2018 Gaël PORTAY <gael.portay@savoirfairelinux.com>
 #
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the MIT License.
@@ -104,7 +104,7 @@ echo
 
 run "dmake: Test option --sh with a busybox based distro (/bin/ash)"
 if ( echo -e "all:\n\t@echo SHELL=\$\$0" | \
-     SHELL=/bin/zsh dmake "$@" -f - -F Dockerfile.alpine --sh | tee /dev/stderr | \
+     DOSHELL=/bin/zsh dmake "$@" -f - -F Dockerfile.alpine --sh | tee /dev/stderr | \
      grep -q 'SHELL=/bin/sh' )
 then
 	ok
@@ -113,9 +113,9 @@ else
 fi
 echo
 
-run "dmake: Test overriding existent \$SHELL with a busybox based distro (/bin/ash)"
+run "dmake: Test overriding existent \$DOSHELL with a busybox based distro (/bin/ash)"
 if ( echo -e "all:\n\t@echo SHELL=\$\$0" | \
-     SHELL=/bin/ash dmake "$@" -f - -F Dockerfile.alpine | tee /dev/stderr | \
+     DOSHELL=/bin/ash dmake "$@" -f - -F Dockerfile.alpine | tee /dev/stderr | \
      grep -q 'SHELL=/bin/ash' )
 then
 	ok
@@ -124,9 +124,9 @@ else
 fi
 echo
 
-run "dmake: Test overriding nonexistent \$SHELL and option --sh with a busybox based distro (/bin/ash)"
+run "dmake: Test overriding nonexistent \$DOSHELL and option --sh with a busybox based distro (/bin/ash)"
 if ( echo -e "all:\n\t@echo SHELL=\$\$0" | \
-     SHELL=/bin/zsh dmake "$@" -f - -F Dockerfile.alpine --sh | tee /dev/stderr | \
+     DOSHELL=/bin/zsh dmake "$@" -f - -F Dockerfile.alpine --sh | tee /dev/stderr | \
      grep -q 'SHELL=/bin/sh' )
 then
 	ok
@@ -135,9 +135,9 @@ else
 fi
 echo
 
-run "dmake: Test overriding existent \$SHELL in command line argument with a busybox based distro (/bin/ash)"
+run "dmake: Test overriding existent \$DOSHELL in command line argument with a busybox based distro (/bin/ash)"
 if ( echo -e "all:\n\t@echo SHELL=\$\$0" | \
-     dmake "$@" -f - -F Dockerfile.alpine SHELL=/bin/sh | tee /dev/stderr | \
+     dmake "$@" -f - -F Dockerfile.alpine DOSHELL=/bin/sh | tee /dev/stderr | \
      grep -q 'SHELL=/bin/sh' )
 then
 	ok

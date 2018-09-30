@@ -32,9 +32,9 @@ parse_arguments() {
 			usage
 			exit 0
 		elif [ "$1" = "--sh" ]; then
-			doshopts+=" $1"
-			shell_doshopts+=" $1"
-		elif [ "$1" = "SHELL=/bin/sh" ]; then
+			doshopts+=" --shell /bin/sh"
+			shell_doshopts+=" --shell /bin/sh"
+		elif [ "$1" = "DOSHELL=/bin/sh" ]; then
 			eval "$1"
 		elif [ "$1" = "-F" ] || [ "$1" = "--dockerfile" ]; then
 			doshopts+=" $1 $2"
