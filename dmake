@@ -37,10 +37,10 @@ parse_arguments() {
 		elif [ "$1" = "DOSHELL=/bin/sh" ]; then
 			eval "$1"
 		elif [ "$1" = "-F" ] || [ "$1" = "--dockerfile" ]; then
-			doshopts+=" $1 $2"
+			doshopts+=" --dockerfile $2"
 			shift
 		elif [ "$1" = "-C" ] || [ "$1" = "--directory" ]; then
-			doshopts+=" $1 $2"
+			doshopts+=" --directory $2"
 			makeopts[${#makeopts[*]}]="$1"
 			makeopts[${#makeopts[*]}]="$2"
 			shift
