@@ -77,5 +77,5 @@ fi
 # Remove running containers
 if $running; then
 	docker ps --quiet --all --filter "status=running" | \
-	while read -r id; do docker rm  "$id" "$@"; done
+	while read -r id; do docker rm  "$id" "$@" --force; done
 fi
