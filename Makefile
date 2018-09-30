@@ -11,18 +11,17 @@ PREFIX ?= /usr/local
 all:
 
 .PHONY: doc
-doc: dmake.1.gz docker-clean.1.gz docker-archive.1.gz
+doc: docker-clean.1.gz docker-archive.1.gz
 
 .PHONY: install
 install:
 	install -d $(DESTDIR)$(PREFIX)/bin/
-	install -m 755 dmake $(DESTDIR)$(PREFIX)/bin/
 	install -m 755 docker-clean docker-archive $(DESTDIR)$(PREFIX)/bin/
 
 .PHONY: install-doc
 install-doc:
 	install -d $(DESTDIR)$(PREFIX)/share/man/man1/
-	install -m 644 dmake.1.gz docker-clean.1.gz \
+	install -m 644 docker-clean.1.gz \
 	               docker-archive.1.gz \
 	           $(DESTDIR)$(PREFIX)/share/man/man1/
 
@@ -33,7 +32,7 @@ install-bash-completion:
 	                             bash-completion); \
 	if [ -n "$$completionsdir" ]; then \
 		install -d $(DESTDIR)$$completionsdir/; \
-		for bash in dmake docker-clean docker-archive; do \
+		for bash in docker-clean docker-archive; do \
 			install -m 644 bash-completion/$$bash \
 			        $(DESTDIR)$$completionsdir/; \
 		done; \
@@ -41,17 +40,17 @@ install-bash-completion:
 
 .PHONY: uninstall
 uninstall:
-	for bin in dmake docker-clean docker-archive; do \
+	for bin in docker-clean docker-archive; do \
 		rm -f $(DESTDIR)$(PREFIX)/bin/$$bin; \
 	done
-	for man in dmake.1.gz docker-clean.1.gz docker-archive.1.gz; do \
+	for man in docker-clean.1.gz docker-archive.1.gz; do \
 		rm -f $(DESTDIR)$(PREFIX)/share/man/man1/$$man; \
 	done
 	completionsdir=$$(pkg-config --define-variable=prefix=$(PREFIX) \
 	                             --variable=completionsdir \
 	                             bash-completion); \
 	if [ -n "$$completionsdir" ]; then \
-		for bash in dmake docker-clean docker-archive; do \
+		for bash in docker-clean docker-archive; do \
 			rm -f $(DESTDIR)$$completionsdir/$$bash; \
 		done; \
 	fi
@@ -65,17 +64,17 @@ tests:
 	@./tests.sh
 
 .PHONY: check
-check: dmake docker-clean docker-archive
+check: docker-clean docker-archive
 	shellcheck $^
 
 .PHONY: clean
 clean:
-	rm -f dmake.1.gz docker-clean.1.gz docker-archive.1.gz
+	rm -f docker-clean.1.gz docker-archive.1.gz
 	rm -f PKGBUILD*.aur master.tar.gz src/master.tar.gz *.pkg.tar.xz \
 	   -R src/docker-scripts-master/ pkg/docker-scripts/
 
 .PHONY: aur
-aur: PKGBUILD.dmake.aur PKGBUILD.docker-scripts.aur
+aur: PKGBUILD.docker-scripts.aur
 	for pkgbuild in $^; do \
 		makepkg --force --syncdeps -p $$pkgbuild; \
 	done

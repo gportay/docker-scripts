@@ -4,8 +4,7 @@
 
 [dosh][1] - run a user shell in a container with pwd bind mounted
 
-[dmake](dmake.1.adoc) - maintain program dependencies running commands in
-container
+[domake][4] - maintain program dependencies running commands in container
 
 [docker-clean](docker-clean.1.adoc) - remove unused containers and images
 
@@ -17,7 +16,7 @@ container
 [dosh][2] runs the _command_ process in a container; using the current _user_,
 with _pwd_ bind mounted.
 
-[dmake](dmake) runs on top of *make(1)* using [dosh(1)][1] as default _shell_.
+[domake][5] runs on top of *make(1)* using [dosh(1)][1] as default _shell_.
 
 [docker-clean](docker-clean) removes exited containers and dangling images that
 take place for nothing.
@@ -27,17 +26,15 @@ archive.
 
 ## DOCUMENTATION
 
-Using *dmake(1)* and _Makefile_
+Using *domake(1)* and _Makefile_
 
-	$ dmake doc
+	$ domake doc
 	sha256:ced062433e33
-	asciidoctor -b manpage -o dmake.1 dmake.1.adoc
-	gzip -c dmake.1 >dmake.1.gz
 	asciidoctor -b manpage -o docker-clean.1 docker-clean.1.adoc
 	gzip -c docker-clean.1 >docker-clean.1.gz
 	asciidoctor -b manpage -o docker-archive.1 docker-archive.1.adoc
 	gzip -c docker-archive.1 >docker-archive.1.gz
-	rm docker-archive.1 docker-clean.1 dmake.1
+	rm docker-archive.1 docker-clean.1 
 	83727c98a60a9648b20d127c53526e785a051cef2235702071b8504bb1bdca59
 
 ## INSTALL
@@ -56,11 +53,10 @@ or
 
 ## LINKS
 
-Check for man-pages ([dosh(1)][1], [dmake(1)](dmake.1.adoc),
+Check for man-pages ([dosh(1)][1], [domake(1)][4],
 [docker-clean(1)](docker-clean.1.adoc), and
-[docker-archive(1)](docker-archive.1.adoc)) and theirs examples
-([dosh][3], [dmake](dmake.1.adoc#examples),
-[docker-clean](docker-clean.1.adoc#examples)).
+[docker-archive(1)](docker-archive.1.adoc)) and theirs examples ([dosh][3],
+[domake][6], [docker-clean](docker-clean.1.adoc#examples)).
 
 Enjoy!
 
@@ -82,3 +78,6 @@ the terms of the MIT License.
 [1]: https://www.github.com/gportay/dosh/blob/master/dosh.1.adoc
 [2]: https://www.github.com/gportay/dosh/blob/master/dosh
 [3]: https://www.github.com/gportay/dosh/blob/master/dosh.1.adoc#examples
+[4]: https://www.github.com/gportay/domake/blob/master/domake.1.adoc
+[5]: https://www.github.com/gportay/domake/blob/master/domake
+[6]: https://www.github.com/gportay/domake/blob/master/domake.1.adoc#examples
