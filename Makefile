@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2017 Gaël PORTAY <gael.portay@savoirfairelinux.com>
+# Copyright (c) 2017-2018 Gaël PORTAY <gael.portay@savoirfairelinux.com>
 #
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the MIT License.
@@ -12,18 +12,15 @@ all:
 
 .PHONY: doc
 doc: dmake.1.gz docker-clean.1.gz docker-archive.1.gz
-	$(MAKE) -C dosh $@
 
 .PHONY: install
 install:
-	$(MAKE) -C dosh $@ DESTDIR=$(DESTDIR) PREFIX=$(PREFIX)
 	install -d $(DESTDIR)$(PREFIX)/bin/
 	install -m 755 dmake $(DESTDIR)$(PREFIX)/bin/
 	install -m 755 docker-clean docker-archive $(DESTDIR)$(PREFIX)/bin/
 
 .PHONY: install-doc
 install-doc:
-	$(MAKE) -C dosh $@ DESTDIR=$(DESTDIR) PREFIX=$(PREFIX)
 	install -d $(DESTDIR)$(PREFIX)/share/man/man1/
 	install -m 644 dmake.1.gz docker-clean.1.gz \
 	               docker-archive.1.gz \
@@ -31,7 +28,6 @@ install-doc:
 
 .PHONY: install-bash-completion
 install-bash-completion:
-	$(MAKE) -C dosh $@ DESTDIR=$(DESTDIR) PREFIX=$(PREFIX)
 	completionsdir=$$(pkg-config --variable=completionsdir bash-completion); \
 	if [ -n "$$completionsdir" ]; then \
 		install -d $(DESTDIR)$$completionsdir/; \
@@ -43,7 +39,6 @@ install-bash-completion:
 
 .PHONY: uninstall
 uninstall:
-	$(MAKE) -C dosh $@ DESTDIR=$(DESTDIR) PREFIX=$(PREFIX)
 	for bin in dmake docker-clean docker-archive; do \
 		rm -f $(DESTDIR)$(PREFIX)/bin/$$bin; \
 	done
@@ -59,17 +54,14 @@ uninstall:
 
 .PHONY: tests
 tests:
-	$(MAKE) -C dosh $@
 	@./tests.sh
 
 .PHONY: check
 check: dmake docker-clean docker-archive
-	$(MAKE) -C dosh $@
 	shellcheck $^
 
 .PHONY: clean
 clean:
-	$(MAKE) -C dosh $@
 	rm -f dmake.1.gz docker-clean.1.gz docker-archive.1.gz
 	rm -f PKGBUILD*.aur master.tar.gz src/master.tar.gz *.pkg.tar.xz \
 	   -R src/docker-scripts-master/ pkg/docker-scripts/
