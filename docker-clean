@@ -25,36 +25,32 @@ Options:
 EOF
 }
 
-parse_arguments() {
-	exited=true
-	dangling=true
-	created=false
-	running=false
-	while [ "$#" -ne 0 ]; do
-		if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
-			usage
-			exit 0
-		elif [ "$1" = "-E" ] || [ "$1" = "--no-exited" ]; then
-			exited=false
-		elif [ "$1" = "-D" ] || [ "$1" = "--no-dangling" ]; then
-			dangling=false
-		elif [ "$1" = "-c" ] || [ "$1" = "--created" ]; then
-			created=true
-		elif [ "$1" = "--running" ]; then
-			running=true
-		elif [ "$1" = "--all" ]; then
-			exited=true
-			dangling=true
-			created=true
-		elif [ "$1" = "--" ]; then
-			shift
-			break
-		fi
+exited=true
+dangling=true
+created=false
+running=false
+while [ "$#" -ne 0 ]; do
+	if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+		usage
+		exit 0
+	elif [ "$1" = "-E" ] || [ "$1" = "--no-exited" ]; then
+		exited=false
+	elif [ "$1" = "-D" ] || [ "$1" = "--no-dangling" ]; then
+		dangling=false
+	elif [ "$1" = "-c" ] || [ "$1" = "--created" ]; then
+		created=true
+	elif [ "$1" = "--running" ]; then
+		running=true
+	elif [ "$1" = "--all" ]; then
+		exited=true
+		dangling=true
+		created=true
+	elif [ "$1" = "--" ]; then
 		shift
-	done
-}
-
-parse_arguments "$@"
+		break
+	fi
+	shift
+done
 
 # Remove exited containers
 if $exited; then
