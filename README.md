@@ -31,11 +31,13 @@ Using *dmake(1)* and _Makefile_
 
 	$ dmake doc
 	sha256:ced062433e33
-	asciidoctor -b manpage -o dosh.1 dosh.1.adoc
-	gzip -c dosh.1 >dosh.1.gz
 	asciidoctor -b manpage -o dmake.1 dmake.1.adoc
 	gzip -c dmake.1 >dmake.1.gz
-	rm dosh.1 dmake.1
+	asciidoctor -b manpage -o docker-clean.1 docker-clean.1.adoc
+	gzip -c docker-clean.1 >docker-clean.1.gz
+	asciidoctor -b manpage -o docker-archive.1 docker-archive.1.adoc
+	gzip -c docker-archive.1 >docker-archive.1.gz
+	rm docker-archive.1 docker-clean.1 dmake.1
 	83727c98a60a9648b20d127c53526e785a051cef2235702071b8504bb1bdca59
 
 ## INSTALL
@@ -86,7 +88,7 @@ Written by Gaël PORTAY *gael.portay@savoirfairelinux.com*
 
 ## COPYRIGHT
 
-Copyright (c) 2017 Gaël PORTAY
+Copyright (c) 2017-2018 Gaël PORTAY
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the MIT License.
