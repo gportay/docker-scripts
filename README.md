@@ -62,20 +62,6 @@ Check for man-pages ([dosh(1)][1], [dmake(1)](dmake.1.adoc),
 ([dosh][3], [dmake](dmake.1.adoc#examples),
 [docker-clean](docker-clean.1.adoc#examples)).
 
-Also, here is an extra example that build the documentation
-
-	$ echo FROM ubuntu >Dockerfile
-	$ echo RUN apt-get update && apt-get install -y asciidoctor >>Dockerfile
-
-	$ cat Dockerfile
-	FROM ubuntu
-	RUN apt-get update && apt-get install -y asciidoctor
-
-	$ dosh -c asciidoctor -b manpage -o - dosh.1.adoc | gzip -c - >dosh.1.gz
-	sha256:ced062433e33
-
-	$ man ./dosh.1.gz
-
 Enjoy!
 
 ## BUGS
