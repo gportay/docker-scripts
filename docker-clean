@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Copyright (c) 2017 Gaël PORTAY <gael.portay@savoirfairelinux.com>
+# Copyright (c) 2017-2018 Gaël PORTAY <gael.portay@savoirfairelinux.com>
 #
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the MIT License.
@@ -10,7 +10,7 @@ set -e
 
 usage() {
 	cat <<EOF
-Usage: ${0##*/} [OPTIONS]
+Usage: ${0##*/} [OPTIONS] [--] [DOCKER_RM_RMI_EXTRA_ARGUMENTS]
 
 Remove exited containers and dangling images.
 
@@ -46,6 +46,9 @@ parse_arguments() {
 			exited=true
 			dangling=true
 			created=true
+		elif [ "$1" = "--" ]; then
+			shift
+			break
 		fi
 		shift
 	done
@@ -56,23 +59,23 @@ parse_arguments "$@"
 # Remove exited containers
 if $exited; then
 	docker ps --quiet --all --filter "status=exited" | \
-	while read -r id; do docker rm  "$id"; done
+	while read -r id; do docker rm  "$id" "$@"; done
 fi
 
 # Remove dangling images
 if $dangling; then
 	docker images --quiet --filter "dangling=true" | \
-	while read -r id; do docker rmi "$id"; done
+	while read -r id; do docker rmi "$id" "$@"; done
 fi
 
 # Remove created containers
 if $created; then
 	docker ps --quiet --all --filter "status=created" | \
-	while read -r id; do docker rm  "$id"; done
+	while read -r id; do docker rm  "$id" "$@"; done
 fi
 
 # Remove running containers
 if $running; then
 	docker ps --quiet --all --filter "status=running" | \
-	while read -r id; do docker rm  "$id"; done
+	while read -r id; do docker rm  "$id" "$@"; done
 fi

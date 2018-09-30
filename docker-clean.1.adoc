@@ -12,7 +12,7 @@ docker-clean - remove unused containers and images
 
 == SYNOPSIS
 
-*docker-clean* [OPTIONS]
+*docker-clean* [OPTIONS] [--] [DOCKER_RM_RMI_EXTRA_ARGUMENTS]
 
 == DESCRIPTION
 
