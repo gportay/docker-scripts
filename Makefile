@@ -29,9 +29,9 @@ install-doc:
 
 .PHONY: install-bash-completion
 install-bash-completion:
-	completionsdir=$$(pkg-config --define-variable=prefix=$(PREFIX) \
+	completionsdir=$${BASHCOMPLETIONSDIR:-$$(pkg-config --define-variable=prefix=$(PREFIX) \
 	                             --variable=completionsdir \
-	                             bash-completion); \
+	                             bash-completion)}; \
 	if [ -n "$$completionsdir" ]; then \
 		install -d $(DESTDIR)$$completionsdir/; \
 		for bash in docker-clean docker-archive; do \
@@ -48,9 +48,9 @@ uninstall:
 	for man in docker-clean.1.gz docker-archive.1.gz; do \
 		rm -f $(DESTDIR)$(PREFIX)/share/man/man1/$$man; \
 	done
-	completionsdir=$$(pkg-config --define-variable=prefix=$(PREFIX) \
+	completionsdir=$${BASHCOMPLETIONSDIR:-$$(pkg-config --define-variable=prefix=$(PREFIX) \
 	                             --variable=completionsdir \
-	                             bash-completion); \
+	                             bash-completion)}; \
 	if [ -n "$$completionsdir" ]; then \
 		for bash in docker-clean docker-archive; do \
 			rm -f $(DESTDIR)$$completionsdir/$$bash; \
@@ -62,7 +62,7 @@ user-install-all: user-install user-install-doc user-install-bash-completion
 
 user-install user-install-doc user-install-bash-completion user-uninstall:
 user-%:
-	$(MAKE) $* PREFIX=$$HOME/.local
+	$(MAKE) $* PREFIX=$$HOME/.local BASHCOMPLETIONSDIR=$$HOME/.local/share/bash-completion/completions
 
 .PHONY: tests
 tests:
