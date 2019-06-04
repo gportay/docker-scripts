@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2017-2018 Gaël PORTAY
+# Copyright (c) 2017-2019 Gaël PORTAY
 #
 # SPDX-License-Identifier: MIT
 #
@@ -11,6 +11,9 @@ all:
 
 .PHONY: doc
 doc: docker-clean.1.gz docker-archive.1.gz
+
+.PHONY: install-all
+install-all: install install-doc install-bash-completion
 
 .PHONY: install
 install:
@@ -53,6 +56,9 @@ uninstall:
 			rm -f $(DESTDIR)$$completionsdir/$$bash; \
 		done; \
 	fi
+
+.PHONY: user-install-all
+user-install-all: user-install user-install-doc user-install-bash-completion
 
 user-install user-install-doc user-install-bash-completion user-uninstall:
 user-%:
