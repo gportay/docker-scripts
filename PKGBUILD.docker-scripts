@@ -1,4 +1,4 @@
-# Maintainer: Gaël PORTAY <gael.portay@savoirfairelinux.com>
+# Maintainer: Gaël PORTAY <gael.portay@gmail.com>
 
 pkgname=docker-scripts
 pkgver=master
