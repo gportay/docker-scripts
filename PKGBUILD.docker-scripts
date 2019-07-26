@@ -34,4 +34,6 @@ package() {
 	install -m 644 bash-completion/docker-clean \
 	               bash-completion/docker-archive \
 	        "$pkgdir/usr/share/bash-completion/completions"
+	install -d "$pkgdir/usr/share/licenses/$pkgname/"
+	install -m 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/"
 }
