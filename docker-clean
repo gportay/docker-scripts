@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Copyright (c) 2017-2018 Gaël PORTAY
+# Copyright (c) 2017-2019 Gaël PORTAY
 #
 # SPDX-License-Identifier: MIT
 #
@@ -47,6 +47,10 @@ while [ "$#" -ne 0 ]; do
 	elif [ "$1" = "--" ]; then
 		shift
 		break
+	else
+		usage
+		echo "$1: Invalid argument!" >&2
+		exit 1
 	fi
 	shift
 done
