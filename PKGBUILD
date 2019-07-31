@@ -11,6 +11,7 @@ url="https://github.com/gportay/${pkgname[0]}"
 license=('MIT')
 depends=('docker')
 makedepends=('asciidoctor')
+checkdepends=('shellcheck')
 source=("https://github.com/gportay/$pkgbase/archive/$_pkgver.tar.gz")
 
 pkgver() {
@@ -21,6 +22,11 @@ pkgver() {
 build() {
 	cd "$pkgbase-$_pkgver"
 	make doc
+}
+
+check() {
+	cd "$pkgbase-$_pkgver"
+	make -k check
 }
 
 package_docker-scripts() {
