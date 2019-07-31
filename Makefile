@@ -75,16 +75,14 @@ check: docker-clean docker-archive
 .PHONY: clean
 clean:
 	rm -f docker-clean.1.gz docker-archive.1.gz
-	rm -f PKGBUILD*.aur master.tar.gz src/master.tar.gz *.pkg.tar.xz \
+	rm -f PKGBUILD.aur master.tar.gz src/master.tar.gz *.pkg.tar.xz \
 	   -R src/docker-scripts-master/ pkg/docker-scripts/
 
 .PHONY: aur
-aur: PKGBUILD.docker-scripts.aur
-	for pkgbuild in $^; do \
-		makepkg --force --syncdeps -p $$pkgbuild; \
-	done
+aur: PKGBUILD.aur
+	makepkg --force --syncdeps -p $^
 
-PKGBUILD%.aur: PKGBUILD%
+PKGBUILD.aur: PKGBUILD
 	cp $< $@.tmp
 	makepkg --nobuild --nodeps --skipinteg -p $@.tmp
 	md5sum="$$(makepkg --geninteg -p $@.tmp)"; \
