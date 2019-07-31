@@ -33,14 +33,10 @@ package_docker-archive() {
 
 	cd "$pkgbase-$_pkgver"
 
-	install -d "$pkgdir/usr/bin/"
-	install -m 755 docker-archive "$pkgdir/usr/bin/"
-	install -d "$pkgdir/usr/share/man/man1/"
-	install -m 644 docker-archive.1.gz "$pkgdir/usr/share/man/man1/"
-	install -d "$pkgdir/usr/share/bash-completion/completions"
-	install -m 644 bash-completion/docker-archive "$pkgdir/usr/share/bash-completion/completions"
-	install -d "$pkgdir/usr/share/licenses/$pkgname/"
-	install -m 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/"
+	install -D -m 755 docker-archive "$pkgdir/usr/bin/docker-archive"
+	install -D -m 644 docker-archive.1.gz "$pkgdir/usr/share/man/man1/docker-archive.1.gz"
+	install -D -m 644 bash-completion/docker-archive "$pkgdir/usr/share/bash-completion/completions/docker-archive"
+	install -D -m 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
 
 package_docker-clean() {
@@ -48,12 +44,8 @@ package_docker-clean() {
 
 	cd "$pkgbase-$_pkgver"
 
-	install -d "$pkgdir/usr/bin/"
-	install -m 755 docker-clean "$pkgdir/usr/bin/"
-	install -d "$pkgdir/usr/share/man/man1/"
-	install -m 644 docker-clean.1.gz "$pkgdir/usr/share/man/man1/"
-	install -d "$pkgdir/usr/share/bash-completion/completions"
-	install -m 644 bash-completion/docker-clean "$pkgdir/usr/share/bash-completion/completions"
-	install -d "$pkgdir/usr/share/licenses/$pkgname/"
-	install -m 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/"
+	install -D -m 755 docker-clean "$pkgdir/usr/bin/docker-clean"
+	install -D -m 644 docker-clean.1.gz "$pkgdir/usr/share/man/man1/docker-clean.1.gz"
+	install -D -m 644 bash-completion/docker-clean "$pkgdir/usr/share/bash-completion/completions/docker-clean"
+	install -D -m 644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
